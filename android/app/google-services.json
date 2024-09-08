@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "172447300039",
+    "firebase_url": "https://looks-2db38-default-rtdb.firebaseio.com",
+    "project_id": "looks-2db38",
+    "storage_bucket": "looks-2db38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172447300039:android:21dc7ce20e9e914a6a81e2",
+        "android_client_info": {
+          "package_name": "com.example.control_ganadero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172447300039-i1332d4jkj26jmsoi5t9mrc94jm8iq11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGj3moHyUCs33d_AmDmT2Y7yU9iLrMxzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172447300039-i1332d4jkj26jmsoi5t9mrc94jm8iq11.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172447300039-dc0mc0lccug1ktlfkhjh74u9l6vop5h2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.controlGanadero"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172447300039:android:a817cfb63dc5d24b6a81e2",
+        "android_client_info": {
+          "package_name": "com.mycompany.looks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172447300039-h1q9gkf433ahn9aq60587afvenj0sogs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.looks",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "172447300039-i1332d4jkj26jmsoi5t9mrc94jm8iq11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGj3moHyUCs33d_AmDmT2Y7yU9iLrMxzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172447300039-i1332d4jkj26jmsoi5t9mrc94jm8iq11.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172447300039-dc0mc0lccug1ktlfkhjh74u9l6vop5h2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.controlGanadero"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
