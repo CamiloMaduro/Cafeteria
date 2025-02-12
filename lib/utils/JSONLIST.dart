@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:control_ganadero/models/getDataRaza.dart';
+import 'package:control_ganadero/models/getDataProducto.dart';
 import 'package:control_ganadero/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:control_ganadero/utils/JSONLIST.dart' as JSONALIST;
@@ -47,8 +47,8 @@ class jsonalist {
   ) async {
     List<DropdownMenuItem<String>> dropDown = [];
 
-    GetDataRaza GetDatosDropDownBusqueda =
-        await ApiService(apidir).getDataRaza(apidir, Token, IdBusqueda);
+    GetDataProductos GetDatosDropDownBusqueda =
+        await ApiService(apidir).getDataProductos(apidir, Token);
 
     try {
       for (int i = 0; i < GetDatosDropDownBusqueda.datosEspecie!.length; i++) {
@@ -58,7 +58,7 @@ class jsonalist {
           DropdownMenuItem(
               value: GetDatosDropDownBusqueda.datosEspecie![i].Id.toString(),
               child: TextStyles.bodyLarge(context,
-                  '${GetDatosDropDownBusqueda.datosEspecie![i].NombreEspecie}')),
+                  '${GetDatosDropDownBusqueda.datosEspecie![i].NombreProducto}')),
         );
       }
     } catch (e) {

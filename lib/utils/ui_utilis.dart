@@ -55,7 +55,7 @@ class _ShowLogoState extends State<ShowLogo>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image.asset(
-                  'assets/images/InnovExGoControlGanadero.jpg',
+                  'assets/images/Tipyk.png',
                   height: 250,
                   fit: BoxFit.contain,
                 ),
@@ -65,7 +65,7 @@ class _ShowLogoState extends State<ShowLogo>
         : ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
             child: Image.asset(
-              'assets/images/InnovExGoControlGanadero.jpg',
+              'assets/images/Tipyk.png',
               height: 250,
               fit: BoxFit.contain,
             ),

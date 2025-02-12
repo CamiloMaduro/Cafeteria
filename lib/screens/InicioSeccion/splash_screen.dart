@@ -19,23 +19,23 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ShowLogo(isActive: true),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Text(
-              'Bienvenido a InnovExGo',
+              'Bienvenido a Tipyk',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Text(
-              'Tu app de control ganadero',
+              'Control y transparencia',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black54,

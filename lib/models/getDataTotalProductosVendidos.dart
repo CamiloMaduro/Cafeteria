@@ -1,18 +1,20 @@
-class GetDataRaza {
+class GetDataTotalProductosVendidos {
   OkMessage? okMessage;
   ErrorMessage? errorMessage;
-  List<DatoRaza>? datosEspecie;
+  List<DatoTotalProductoVendido>? datosEspecie;
 
-  GetDataRaza({this.okMessage, this.errorMessage, this.datosEspecie});
+  GetDataTotalProductosVendidos(
+      {this.okMessage, this.errorMessage, this.datosEspecie});
 
-  factory GetDataRaza.fromJson(Map<String, dynamic>? parsedJson) {
-    if (parsedJson == null) return GetDataRaza();
+  factory GetDataTotalProductosVendidos.fromJson(
+      Map<String, dynamic>? parsedJson) {
+    if (parsedJson == null) return GetDataTotalProductosVendidos();
 
     var list = parsedJson['data'] as List?;
-    List<DatoRaza>? datosList =
-        list?.map((i) => DatoRaza.fromJson(i)).toList();
+    List<DatoTotalProductoVendido>? datosList =
+        list?.map((i) => DatoTotalProductoVendido.fromJson(i)).toList();
 
-    return GetDataRaza(
+    return GetDataTotalProductosVendidos(
       okMessage: OkMessage.fromJson(parsedJson['ok_message']),
       errorMessage: ErrorMessage.fromJson(parsedJson['error_message']),
       datosEspecie: datosList,
@@ -52,22 +54,16 @@ class ErrorMessage {
   }
 }
 
-class DatoRaza {
-  int? Id;
-  String? NombreEspecie;
-  String? Descripcion;
+class DatoTotalProductoVendido {
+  int? TotalProductosVendidos;
 
-  DatoRaza({
-    this.Id,
-    this.NombreEspecie,
-    this.Descripcion,
+  DatoTotalProductoVendido({
+    this.TotalProductosVendidos,
   });
 
-  factory DatoRaza.fromJson(Map<String, dynamic> json) {
-    return DatoRaza(
-      Id: json['id'] as int?,
-      NombreEspecie: json['nombre'] as String?,
-      Descripcion: json['descripcion'] as String?,
+  factory DatoTotalProductoVendido.fromJson(Map<String, dynamic> json) {
+    return DatoTotalProductoVendido(
+      TotalProductosVendidos: json['productosvendidos'] as int?,
     );
   }
 }

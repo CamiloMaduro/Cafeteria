@@ -1,8 +1,9 @@
 {
-    "name": "control_ganadero",
-    "short_name": "control_ganadero",
-    "start_url": ".",
-    "display": "standalone",
+    "name": "tipyk",
+    "short_name": "tipyk",
+    "start_url": "/",
+    "scope": "/",
+    "display": "browser",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "A new Flutter project.",

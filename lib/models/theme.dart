@@ -6,7 +6,7 @@ class AppTheme {
       useMaterial3: true,
       colorSchemeSeed: Colors.green,
       brightness: Brightness.light,
-      backgroundColor: Colors.grey[300],
+      dialogBackgroundColor: Colors.grey[300],
       fontFamily: 'Nunito', // Aplica la fuente Nunito
       textTheme:
           _buildTextTheme(Brightness.light), // Configura el tema de texto
@@ -18,7 +18,7 @@ class AppTheme {
       useMaterial3: true,
       colorSchemeSeed: Colors.green,
       brightness: Brightness.dark,
-      backgroundColor: Colors.grey[800],
+      dialogBackgroundColor: Colors.grey[800],
       fontFamily: 'Nunito', // Aplica la fuente Nunito
       textTheme: _buildTextTheme(Brightness.dark), // Configura el tema de texto
     );

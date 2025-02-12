@@ -1,7 +1,7 @@
-import 'package:control_ganadero/screens/hacendado/HaciendaScreen.dart';
-import 'package:control_ganadero/screens/hacendado/HomeScreen.dart';
-import 'package:control_ganadero/screens/hacendado/inicioSeccion.dart';
-import 'package:control_ganadero/screens/hacendado/splash_screen.dart';
+import 'package:control_ganadero/screens/Comprador/HomeScreenComprador.dart';
+import 'package:control_ganadero/screens/InicioSeccion/inicioSeccion.dart';
+import 'package:control_ganadero/screens/InicioSeccion/splash_screen.dart';
+import 'package:control_ganadero/screens/Vendedor/HomeScreenVendedor.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -24,25 +24,36 @@ class RouteGenerator {
       case '/home':
         final args = settings.arguments
             as Map<String, dynamic>?; // Recupera los argumentos
-        return _createPageRoute(
-          HomeScreen(
-            userToken: args?['userToken'],
-            nameUser: args?['userName'],
-            userId: args?['userId'],
-          ),
-          settings,
-        );
-      case '/Hacienda':
-        final args = settings.arguments
-            as Map<String, dynamic>?; // Recupera los argumentos
-        return _createPageRoute(
-          HaciendaScreen(
-            userToken: args?['userToken'],
-            nameUser: args?['userName'],
-            userId: args?['userId'],
-          ),
-          settings,
-        );
+        final tipoUserId = args?['tipoUserId'];
+
+        final tipoUserIdInt = tipoUserId is int
+            ? tipoUserId
+            : int.tryParse(tipoUserId.toString() ?? '0');
+
+        if (tipoUserIdInt == 1) {
+          return _createPageRoute(
+            HomeScreenVendedor(
+              userToken: args?['userToken'],
+              nameUser: args?['userName'],
+              userId: args?['userId'],
+              empresaId: args?['empresaId'],
+              tipoUserId: tipoUserIdInt.toString(),
+            ),
+            settings,
+          );
+        } else {
+          return _createPageRoute(
+            HomeScreenComprador(
+              userToken: args?['userToken'],
+              nameUser: args?['userName'],
+              userId: args?['userId'],
+              empresaId: args?['empresaId'],
+              tipoUserId: tipoUserIdInt.toString(),
+            ),
+            settings,
+          );
+        }
+
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

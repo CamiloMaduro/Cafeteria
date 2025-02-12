@@ -94,44 +94,36 @@ class Datos {
 
 class Usuario {
   int? id;
-  String? fechaRegistro;
-  String? identificacion;
   String? nombre;
-  String? direccion;
-  String? telefono;
-  bool? onOff;
+  String? id_empresa_sitios_entregas;
+  String? id_tipo_usuario;
+  bool? on_off;
 
   Usuario({
     this.id,
-    this.fechaRegistro,
-    this.identificacion,
     this.nombre,
-    this.direccion,
-    this.telefono,
-    this.onOff,
+    this.id_empresa_sitios_entregas,
+    this.id_tipo_usuario,
+    this.on_off,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) {
     return Usuario(
       id: json['id'],
-      fechaRegistro: json['fecha_registro'],
-      identificacion: json['identificacion'],
       nombre: json['nombre'],
-      direccion: json['direccion'],
-      telefono: json['telefono'],
-      onOff: json['on_off'],
+      id_empresa_sitios_entregas: json['id_empresa_sitios_entregas'],
+      id_tipo_usuario: json['id_tipo_usuario'],
+      on_off: json['on_off'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'fecha_registro': fechaRegistro,
-      'identificacion': identificacion,
       'nombre': nombre,
-      'direccion': direccion,
-      'telefono': telefono,
-      'on_off': onOff,
+      'id_empresa_sitios_entregas': id_empresa_sitios_entregas,
+      'id_tipo_usuario': id_tipo_usuario,
+      'on_off': on_off,
     };
   }
 }

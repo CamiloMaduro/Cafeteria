@@ -22,6 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.elevation = 0,
     this.route,
     this.arguments,
+    required Null Function() onPressed,
   }) : assert(!showLeading || (showLeading && route != null),
             'route must be provided if showLeading is true');
 

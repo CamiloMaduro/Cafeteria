@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:control_ganadero/models/getDataEspecie.dart';
 import 'package:control_ganadero/models/getDataInicioSeccion.dart';
-import 'package:control_ganadero/models/getDataRaza.dart';
+import 'package:control_ganadero/models/getDataPedidos.dart';
+import 'package:control_ganadero/models/getDataProducto.dart';
+import 'package:control_ganadero/models/getDataEstadisticas.dart';
+import 'package:control_ganadero/models/getDataTotalProductosVendidos.dart';
 import 'package:control_ganadero/models/trueFalseGo.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,22 +20,23 @@ class ApiService {
     int idapp,
     double version,
   ) async {
-    // print('$baseUrl/$url');
+    // print('$url');
 
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/$url'),
+        Uri.parse('$url'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "usuario": id,
           "password": password,
-          "id_app": idapp,
+          "id_app": int.parse(idapp.toString()),
           "version": version,
         }),
       );
       // print(response.statusCode);
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
+        // print(data);
         return InicioDeSesionGo.fromJson(data);
       } else {
         throw Exception(
@@ -43,46 +47,12 @@ class ApiService {
     }
   }
 
-  Future<TrueFalseGo> insertFinca(
+  Future<TrueFalseGo> updateCantidadEntregadas(
     String apidir,
-    String id,
-    String password,
-    int idapp,
-    double version,
-  ) async {
-    try {
-      final response = await http.post(
-        Uri.parse(apidir),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "nombre": id,
-          "ubicacion": password,
-          "id_usuario": idapp,
-          "id_usuario_registra": version,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        var data = json.decode(response.body);
-        return TrueFalseGo.fromJson(data);
-      } else {
-        throw Exception(
-            'Failed to load data. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Failed to load data: $e');
-    }
-  }
-
-  Future<TrueFalseGo> transferirEquipo(
-    String apidir,
-    String id_usuario,
-    String id_dispositivo,
-    String usuario_registra,
-    String fecha_inicio,
-    String fecha_fin,
+    List<Map<String, dynamic>> productos,
     String Token,
   ) async {
+    // print(apidir);
     final response = await http.put(
       Uri.parse("$apidir"),
       headers: {
@@ -90,14 +60,34 @@ class ApiService {
         'Authorization': 'Bearer $Token'
       },
       body: jsonEncode({
-        "id_usuario": int.parse(id_usuario),
-        "id_dispositivo": int.parse(id_dispositivo),
-        "fecha_inicio": fecha_inicio,
-        "fecha_fin": fecha_fin,
-        "usuario_registra": int.parse(usuario_registra),
+        "producto": productos,
       }),
     );
     var data = json.decode(response.body);
+    // print(data);
+    TrueFalseGo trueFalse = new TrueFalseGo.fromJson(data);
+    return trueFalse;
+  }
+
+  Future<TrueFalseGo> pedidoConfirmado(
+    String apidir,
+    String fecha_entrega,
+    String Token,
+  ) async {
+    // print(apidir);
+
+    final response = await http.post(
+      Uri.parse("$apidir"),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        'Authorization': 'Bearer $Token'
+      },
+      body: jsonEncode({
+        "fecha_entrega": fecha_entrega,
+      }),
+    );
+    var data = json.decode(response.body);
+    // print(data);
     TrueFalseGo trueFalse = new TrueFalseGo.fromJson(data);
     return trueFalse;
   }
@@ -148,13 +138,12 @@ class ApiService {
     return datosEntrevista;
   }
 
-  Future<GetDataRaza> getDataRaza(
-      String apidir, String Token, String idEspecie) async {
+  Future<GetDataProductos> getDataProductos(String apidir, String Token) async {
     apidir = apidir;
     if (Token != "") {
-      apidir = '$apidir/$idEspecie';
+      apidir = '$apidir';
     }
-    print(apidir);
+    // print(apidir);
     final response =
         //whereproyectos ,-, whereusuarios
         await http.get(
@@ -168,45 +157,119 @@ class ApiService {
       // "password":password}
     );
     var data = json.decode(response.body);
-    print(data);
-    GetDataRaza datosRaza = GetDataRaza.fromJson(data);
+    // print(data);
+    GetDataProductos datos = GetDataProductos.fromJson(data);
 
-    return datosRaza;
+    return datos;
   }
 
-  Future<TrueFalseGo> crearAnimal(
+  Future<GetDataVentaMes> getDataVentasMes(
     String apidir,
-    String Nombre,
-    String NumeroIdentificacion,
-    String FechaNacimiento,
-    String IdSexo,
-    String IdRaza,
-    String IdFinca,
-    String IdUsuario,
-    String FechaIngreso,
-    String PesoInicial,
-    String IdEstadoActual,
-    String? RutaFoto,
+    String Mes,
+    String Year,
+    String Token,
+  ) async {
+    apidir = apidir;
+    if (Token != "") {
+      apidir = '$apidir/$Mes/$Year';
+    }
+    // print(apidir);
+    final response =
+        //whereproyectos ,-, whereusuarios
+        await http.get(
+      Uri.parse("$apidir"),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        'Authorization': 'Bearer $Token'
+      },
+      //headers: {"content-type": "application/x-www-form-urlencoded; charset=UTF-8",},
+      // body:{"id":id,
+      // "password":password}
+    );
+    var data = json.decode(response.body);
+    // print(data);
+    GetDataVentaMes datos = GetDataVentaMes.fromJson(data);
+
+    return datos;
+  }
+
+  Future<GetDataTotalProductosVendidos> getDataVentasProductosMes(
+    String apidir,
+    String Mes,
+    String Year,
+    String Token,
+  ) async {
+    apidir = apidir;
+    if (Token != "") {
+      apidir = '$apidir/$Mes/$Year';
+    }
+    // print(apidir);
+    final response =
+        //whereproyectos ,-, whereusuarios
+        await http.get(
+      Uri.parse("$apidir"),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        'Authorization': 'Bearer $Token'
+      },
+      //headers: {"content-type": "application/x-www-form-urlencoded; charset=UTF-8",},
+      // body:{"id":id,
+      // "password":password}
+    );
+    var data = json.decode(response.body);
+    // print(data);
+    GetDataTotalProductosVendidos datos =
+        GetDataTotalProductosVendidos.fromJson(data);
+
+    return datos;
+  }
+
+  Future<GetDataPedidos> getDataPedidos(
+    String apidir,
+    String mostrarTodo,
+    String Cafeteria,
+    String Token,
+  ) async {
+    apidir = apidir;
+    if (Token != "") {
+      apidir = '$apidir/$mostrarTodo/$Cafeteria';
+    }
+    // print(apidir);
+    final response =
+        //whereproyectos ,-, whereusuarios
+        await http.get(
+      Uri.parse("$apidir"),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        'Authorization': 'Bearer $Token'
+      },
+      //headers: {"content-type": "application/x-www-form-urlencoded; charset=UTF-8",},
+      // body:{"id":id,
+      // "password":password}
+    );
+    var data = json.decode(response.body);
+    // print(data);
+    GetDataPedidos datos = GetDataPedidos.fromJson(data);
+
+    return datos;
+  }
+
+  Future<TrueFalseGo> crearPedido(
+    String apidir,
+    List<Map<String, dynamic>> productos,
+    String FechaEntrega,
     String IdUsuarioRegistra,
     String Token,
   ) async {
-    print(apidir);
-    print(
-      jsonEncode({
-        "nombre": Nombre,
-        "numero_identificacion": NumeroIdentificacion,
-        "fecha_nacimiento": FechaNacimiento,
-        "id_sexo": IdSexo,
-        "id_raza": int.parse(IdRaza),
-        "id_finca": 1,
-        "id_usuario": IdUsuario,
-        "fecha_ingreso": FechaIngreso,
-        "peso_inicial": PesoInicial,
-        "id_estado_actual": int.parse(IdEstadoActual),
-        "ruta_foto": RutaFoto == null ? '' : RutaFoto,
-        "id_usuario_registra": IdUsuarioRegistra,
-      }),
-    );
+    // print(apidir);
+    // print(
+    //   jsonEncode({
+    //     "producto": productos,
+    //     "fecha_entrega": FechaEntrega,
+    //     "id_usuario_registra": IdUsuarioRegistra, // Corregido aquí
+    //   }),
+    // );
+
     final response = await http.post(
       Uri.parse("$apidir"),
       headers: {
@@ -214,21 +277,15 @@ class ApiService {
         'Authorization': 'Bearer $Token'
       },
       body: jsonEncode({
-        "nombre": Nombre,
-        "numero_identificacion": NumeroIdentificacion,
-        "fecha_nacimiento": FechaNacimiento,
-        "id_sexo": IdSexo,
-        "id_raza": int.parse(IdRaza),
-        "id_finca": 1,
-        "id_usuario": int.parse(IdUsuario),
-        "fecha_ingreso": FechaIngreso,
-        "peso_inicial": double.parse(PesoInicial),
-        "id_estado_actual": int.parse(IdEstadoActual),
-        "ruta_foto": RutaFoto == null ? '' : RutaFoto,
-        "id_usuario_registra": int.parse(IdUsuarioRegistra),
+        "producto": productos,
+        "fecha_entrega": FechaEntrega,
+        "id_usuario_registra": IdUsuarioRegistra, // Corregido aquí
       }),
     );
+
     var data = json.decode(response.body);
+    // print(data);
+
     TrueFalseGo trueFalse = TrueFalseGo.fromJson(data);
     return trueFalse;
   }
